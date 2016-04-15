@@ -2,7 +2,7 @@
  * DIO-utilites.h
  *
  *  Created on: Jan 30, 2016
- *      Author: m.mamdooh
+ *      Author: menshawy
  */
 
 #ifndef _DIO_REGISTERS_H_

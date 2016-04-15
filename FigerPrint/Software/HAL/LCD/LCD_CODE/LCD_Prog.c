@@ -4,13 +4,13 @@
  *  Created on: ??þ/??þ/????
  *      Author: ahmed
  */
-#include "../../../Shared_Libraries/Types.h"
-#include "../../../Shared_Libraries/delay.h"
-#include "../../../MCAL/DIO/DIO_CODE/DIO_interface.h"
+#include "Types.h"
 #include "LCD_Private.h"
 #include "LCD_Config.h"
 #include "LCD_interface.h"
-//#include "DIO_Private.h"
+#include "delay.h"
+#include "DIO_interface.h"
+#include "DIO_Private.h"
 //#include "DIO-utilites.h"
 /*****************************************************************/
 void LCD_VoidCmd(u8 LCD_u8Command)
