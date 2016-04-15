@@ -7,7 +7,7 @@
  */
 #include "../../../Shared_Libraries/Types.h"
 #include "../../../Shared_Libraries/delay.h"
-#include "../../../Shared_Libraries/DIO-utilites.h"
+#include "../../../Shared_Libraries/utilites.h"
 #include "DIO_interface.h"
 #include "DIO_private.h"
 #include "DIO_config.h"

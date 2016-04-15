@@ -38,7 +38,6 @@ void LCD_VoidRowString (u8 LCD_u8row,u8 *LCD_u8String);
 void LCD_VoidRow(u8 LCD_u8no);
 u16* LCD_u16ReturnString(u16 inputValue);
 void LCD_EnableLcd(void);
-//void LCD_MaskLcdPins(void);
 void LCD_WaitLcd(void);
 void LCD_VoidClearScreen(void);
 
