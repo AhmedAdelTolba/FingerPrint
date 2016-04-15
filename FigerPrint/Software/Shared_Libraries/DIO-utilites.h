@@ -24,7 +24,7 @@
 #define toggle_low_nible(reg) reg^=0x0f
 #define assign_low_nible(reg,value)  reg=(reg&0xf0)|(value&0x0f)
 #define assign_high_nible(reg,value) reg=(reg&0x0f)|(value&0x0f)
-#define get_high_nible(reg) (reg& 0xf0 )>> 4
+#define get_high_nible(reg) (reg& 0x0f )>> 4
 #define clr_high_nible(reg) reg&=0x0f
 #define set_high_nible(reg) reg|=0xf0
 #define toggle_high_nible(reg) reg^=0xf0
