@@ -1,0 +1,632 @@
+
+UART_DRIVER.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000003a0  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000012  00800060  000003a0  00000434  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000006  00800072  00800072  00000446  2**0
+                  ALLOC
+  3 .stab         00000684  00000000  00000000  00000448  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      00000695  00000000  00000000  00000acc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 01 	jmp	0x28e	; 0x28e <__vector_13>
+  38:	0c 94 74 01 	jmp	0x2e8	; 0x2e8 <__vector_14>
+  3c:	0c 94 a1 01 	jmp	0x342	; 0x342 <__vector_15>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e0 ea       	ldi	r30, 0xA0	; 160
+  68:	f3 e0       	ldi	r31, 0x03	; 3
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	a2 37       	cpi	r26, 0x72	; 114
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+
+00000076 <__do_clear_bss>:
+  76:	10 e0       	ldi	r17, 0x00	; 0
+  78:	a2 e7       	ldi	r26, 0x72	; 114
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a8 37       	cpi	r26, 0x78	; 120
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 49 00 	call	0x92	; 0x92 <main>
+  8a:	0c 94 ce 01 	jmp	0x39c	; 0x39c <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <main>:
+ *      Author: mahmoud
+ */
+
+
+int main (void)
+{
+  92:	df 93       	push	r29
+  94:	cf 93       	push	r28
+  96:	cd b7       	in	r28, 0x3d	; 61
+  98:	de b7       	in	r29, 0x3e	; 62
+
+return 0;
+  9a:	80 e0       	ldi	r24, 0x00	; 0
+  9c:	90 e0       	ldi	r25, 0x00	; 0
+}
+  9e:	cf 91       	pop	r28
+  a0:	df 91       	pop	r29
+  a2:	08 95       	ret
+
+000000a4 <UART_VoidInit>:
+static void (* UART_TXInteruptPointer)(void);
+static void (* UART_RXInteruptPointer)(void);
+static void (* UART_BufferEmptyInteruptPointer)(void);
+
+/*comment!:initialization function to inatialize the baud rate and UART configured  characteristic*/
+extern void UART_VoidInit(void) {
+  a4:	df 93       	push	r29
+  a6:	cf 93       	push	r28
+  a8:	00 d0       	rcall	.+0      	; 0xaa <UART_VoidInit+0x6>
+  aa:	00 d0       	rcall	.+0      	; 0xac <UART_VoidInit+0x8>
+  ac:	cd b7       	in	r28, 0x3d	; 61
+  ae:	de b7       	in	r29, 0x3e	; 62
+	//INITIALIZE THE BAUD RATE
+	//Getting the value to load in the UBBRH & UBBRL to
+	//apply the baud rate from the baudRate[][] array its row os the system clk
+	//&its col is the  baud rate & the baudrate[][] array itself depend on the u2x ()
+	u16 local_u16UBBRVal = baudRate[SYTEMOSCILLATOR][UART_u8BUDRATE];
+  b0:	80 91 62 00 	lds	r24, 0x0062
+  b4:	90 91 63 00 	lds	r25, 0x0063
+  b8:	9c 83       	std	Y+4, r25	; 0x04
+  ba:	8b 83       	std	Y+3, r24	; 0x03
+	u8 local_u8UBRRVvalLow, local_u8UBRRVvalHigh;
+	//extraxt the low 8bit of the   local_u16UBBRVal
+	local_u8UBRRVvalLow = (local_u16UBBRVal);
+  bc:	8b 81       	ldd	r24, Y+3	; 0x03
+  be:	8a 83       	std	Y+2, r24	; 0x02
+	//extraxt the HIGH 8bti of the   local_u16UBBRVal
+	local_u8UBRRVvalHigh = (local_u16UBBRVal >> EIGHTBBITS);
+  c0:	8b 81       	ldd	r24, Y+3	; 0x03
+  c2:	9c 81       	ldd	r25, Y+4	; 0x04
+  c4:	89 2f       	mov	r24, r25
+  c6:	99 27       	eor	r25, r25
+  c8:	89 83       	std	Y+1, r24	; 0x01
+	//try to clr the register select in the ubbrh to choose ubbrh
+	//not the ucsrc :)
+	//and check that its realy cleared
+	do {
+		UART_u8UBRRH = Clrbit(UART_u8UBRRH, UART_u8UBRRH_URSEL);
+  ca:	a0 e4       	ldi	r26, 0x40	; 64
+  cc:	b0 e0       	ldi	r27, 0x00	; 0
+  ce:	e0 e4       	ldi	r30, 0x40	; 64
+  d0:	f0 e0       	ldi	r31, 0x00	; 0
+  d2:	80 81       	ld	r24, Z
+  d4:	8f 77       	andi	r24, 0x7F	; 127
+  d6:	8c 93       	st	X, r24
+	} while (GetBit(UART_u8UBRRH, UART_u8UBRRH_URSEL));
+  d8:	e0 e4       	ldi	r30, 0x40	; 64
+  da:	f0 e0       	ldi	r31, 0x00	; 0
+  dc:	80 81       	ld	r24, Z
+  de:	88 1f       	adc	r24, r24
+  e0:	88 27       	eor	r24, r24
+  e2:	88 1f       	adc	r24, r24
+  e4:	88 2f       	mov	r24, r24
+  e6:	90 e0       	ldi	r25, 0x00	; 0
+  e8:	90 70       	andi	r25, 0x00	; 0
+  ea:	00 97       	sbiw	r24, 0x00	; 0
+  ec:	71 f7       	brne	.-36     	; 0xca <UART_VoidInit+0x26>
+	//assign the val to UART_u8UBRRH
+	UART_u8UBRRH = local_u8UBRRVvalHigh;
+  ee:	e0 e4       	ldi	r30, 0x40	; 64
+  f0:	f0 e0       	ldi	r31, 0x00	; 0
+  f2:	89 81       	ldd	r24, Y+1	; 0x01
+  f4:	80 83       	st	Z, r24
+	//assign the val to UART_u8UBRRH
+	//and clr the ursel bit
+	UART_u8UBRRL = Clrbit(local_u8UBRRVvalLow, UART_u8UBRRH_URSEL);
+  f6:	e9 e2       	ldi	r30, 0x29	; 41
+  f8:	f0 e0       	ldi	r31, 0x00	; 0
+  fa:	8a 81       	ldd	r24, Y+2	; 0x02
+  fc:	8f 77       	andi	r24, 0x7F	; 127
+  fe:	80 83       	st	Z, r24
+	//Initializing the uart controll and status register (a,b,c)
+	//initializing UCSRA
+	UART_u8UCSRA = conc(0, 0, 0, 0, 0, 0, UART_u8u2x, 0);
+ 100:	eb e2       	ldi	r30, 0x2B	; 43
+ 102:	f0 e0       	ldi	r31, 0x00	; 0
+ 104:	10 82       	st	Z, r1
+	//initializing UCSRB
+	UART_u8UCSRB = conc(UART_u8RXINTERUPTENABLE, UART_u8TXINTERUPTENABLE,
+ 106:	ea e2       	ldi	r30, 0x2A	; 42
+ 108:	f0 e0       	ldi	r31, 0x00	; 0
+ 10a:	88 e1       	ldi	r24, 0x18	; 24
+ 10c:	80 83       	st	Z, r24
+			UART_u8Transmitting, UART_PROG_U8UCSZ2, 0, 0);
+	//try to set the register select in the UART_u8UCSRC to choose UART_u8UCSRC
+	//not the ubrrh :)
+	//and check that its been set
+	do {
+		UART_u8UCSRC = Setbit(UART_u8UCSRC, UART_u8UCSRC_URSEL);
+ 10e:	a0 e4       	ldi	r26, 0x40	; 64
+ 110:	b0 e0       	ldi	r27, 0x00	; 0
+ 112:	e0 e4       	ldi	r30, 0x40	; 64
+ 114:	f0 e0       	ldi	r31, 0x00	; 0
+ 116:	80 81       	ld	r24, Z
+ 118:	80 68       	ori	r24, 0x80	; 128
+ 11a:	8c 93       	st	X, r24
+	} while (!GetBit(UART_u8UCSRC, UART_u8UCSRC_URSEL));
+ 11c:	e0 e4       	ldi	r30, 0x40	; 64
+ 11e:	f0 e0       	ldi	r31, 0x00	; 0
+ 120:	80 81       	ld	r24, Z
+ 122:	88 1f       	adc	r24, r24
+ 124:	88 27       	eor	r24, r24
+ 126:	88 1f       	adc	r24, r24
+ 128:	88 2f       	mov	r24, r24
+ 12a:	90 e0       	ldi	r25, 0x00	; 0
+ 12c:	90 70       	andi	r25, 0x00	; 0
+ 12e:	00 97       	sbiw	r24, 0x00	; 0
+ 130:	71 f3       	breq	.-36     	; 0x10e <UART_VoidInit+0x6a>
+	//initializing UCSRC
+	UART_u8UCSRC = conc(1, 0, UART_u8PARITY1, UART_u8PARITY0,
+ 132:	e0 e4       	ldi	r30, 0x40	; 64
+ 134:	f0 e0       	ldi	r31, 0x00	; 0
+ 136:	86 ea       	ldi	r24, 0xA6	; 166
+ 138:	80 83       	st	Z, r24
+			UART_u8STOPBITSLOCAL, UART_PROG_U8UCSZ1, UART_PROG_U8UCSZ0, 0);
+}
+ 13a:	0f 90       	pop	r0
+ 13c:	0f 90       	pop	r0
+ 13e:	0f 90       	pop	r0
+ 140:	0f 90       	pop	r0
+ 142:	cf 91       	pop	r28
+ 144:	df 91       	pop	r29
+ 146:	08 95       	ret
+
+00000148 <UART_VoidSending>:
+//preprosessor to chek if the UART_u8DATABITS <9
+#if (UART_u8DATABITS==5||UART_u8DATABITS==6||UART_u8DATABITS==7||UART_u8DATABITS==8)
+/*comment!:sending  8 bit UART_VoidSending is blocking Syncronus API */
+
+extern void UART_VoidSending(u8 copy_u8ValToSend) {
+ 148:	df 93       	push	r29
+ 14a:	cf 93       	push	r28
+ 14c:	0f 92       	push	r0
+ 14e:	cd b7       	in	r28, 0x3d	; 61
+ 150:	de b7       	in	r29, 0x3e	; 62
+ 152:	89 83       	std	Y+1, r24	; 0x01
+	/* Wait for empty transmit buffer */
+	while (!( UART_u8UCSRA & (1 << UART_u8UCSRARXC_UDRE)))
+ 154:	eb e2       	ldi	r30, 0x2B	; 43
+ 156:	f0 e0       	ldi	r31, 0x00	; 0
+ 158:	80 81       	ld	r24, Z
+ 15a:	88 2f       	mov	r24, r24
+ 15c:	90 e0       	ldi	r25, 0x00	; 0
+ 15e:	80 72       	andi	r24, 0x20	; 32
+ 160:	90 70       	andi	r25, 0x00	; 0
+ 162:	00 97       	sbiw	r24, 0x00	; 0
+ 164:	b9 f3       	breq	.-18     	; 0x154 <UART_VoidSending+0xc>
+		;
+	/* Put data into buffer, sends the data */
+	UART_u8UDR = copy_u8ValToSend;
+ 166:	ec e2       	ldi	r30, 0x2C	; 44
+ 168:	f0 e0       	ldi	r31, 0x00	; 0
+ 16a:	89 81       	ldd	r24, Y+1	; 0x01
+ 16c:	80 83       	st	Z, r24
+}
+ 16e:	0f 90       	pop	r0
+ 170:	cf 91       	pop	r28
+ 172:	df 91       	pop	r29
+ 174:	08 95       	ret
+
+00000176 <UART_VoidResiving>:
+/*comment!:Resiving  8 bit UART_VoidResiving is blocking Syncronus API*/
+extern void UART_VoidResiving(u8 *copy_u8ValToRecive){
+ 176:	df 93       	push	r29
+ 178:	cf 93       	push	r28
+ 17a:	00 d0       	rcall	.+0      	; 0x17c <UART_VoidResiving+0x6>
+ 17c:	cd b7       	in	r28, 0x3d	; 61
+ 17e:	de b7       	in	r29, 0x3e	; 62
+ 180:	9a 83       	std	Y+2, r25	; 0x02
+ 182:	89 83       	std	Y+1, r24	; 0x01
+	/* Wait for data to be received */
+	while ( !(UART_u8UCSRA & (1<<UART_u8UCSRARXC_RXC)) ){}
+ 184:	eb e2       	ldi	r30, 0x2B	; 43
+ 186:	f0 e0       	ldi	r31, 0x00	; 0
+ 188:	80 81       	ld	r24, Z
+ 18a:	88 23       	and	r24, r24
+ 18c:	dc f7       	brge	.-10     	; 0x184 <UART_VoidResiving+0xe>
+	/* Get and return received data from buffer */
+	*copy_u8ValToRecive=UART_u8UDR;
+ 18e:	ec e2       	ldi	r30, 0x2C	; 44
+ 190:	f0 e0       	ldi	r31, 0x00	; 0
+ 192:	80 81       	ld	r24, Z
+ 194:	e9 81       	ldd	r30, Y+1	; 0x01
+ 196:	fa 81       	ldd	r31, Y+2	; 0x02
+ 198:	80 83       	st	Z, r24
+}
+ 19a:	0f 90       	pop	r0
+ 19c:	0f 90       	pop	r0
+ 19e:	cf 91       	pop	r28
+ 1a0:	df 91       	pop	r29
+ 1a2:	08 95       	ret
+
+000001a4 <UART_voidFlushMemory>:
+#elif UART_u8DATABITS==9
+//TODO to Implement receiving and transmitting 9bit for future use
+#endif
+/*comment!: UART_voidFlushMemory is used to flush the UDR buffer */
+extern void UART_voidFlushMemory(void){
+ 1a4:	df 93       	push	r29
+ 1a6:	cf 93       	push	r28
+ 1a8:	0f 92       	push	r0
+ 1aa:	cd b7       	in	r28, 0x3d	; 61
+ 1ac:	de b7       	in	r29, 0x3e	; 62
+ 1ae:	04 c0       	rjmp	.+8      	; 0x1b8 <UART_voidFlushMemory+0x14>
+	u8 local_u8dummy;
+	//empty the ressiving buffer
+	while ( UART_u8UCSRA & (1 << UART_u8UCSRARXC_RXC)) {
+		local_u8dummy = UART_u8UDR;
+ 1b0:	ec e2       	ldi	r30, 0x2C	; 44
+ 1b2:	f0 e0       	ldi	r31, 0x00	; 0
+ 1b4:	80 81       	ld	r24, Z
+ 1b6:	89 83       	std	Y+1, r24	; 0x01
+#endif
+/*comment!: UART_voidFlushMemory is used to flush the UDR buffer */
+extern void UART_voidFlushMemory(void){
+	u8 local_u8dummy;
+	//empty the ressiving buffer
+	while ( UART_u8UCSRA & (1 << UART_u8UCSRARXC_RXC)) {
+ 1b8:	eb e2       	ldi	r30, 0x2B	; 43
+ 1ba:	f0 e0       	ldi	r31, 0x00	; 0
+ 1bc:	80 81       	ld	r24, Z
+ 1be:	88 23       	and	r24, r24
+ 1c0:	bc f3       	brlt	.-18     	; 0x1b0 <UART_voidFlushMemory+0xc>
+		local_u8dummy = UART_u8UDR;
+	}
+
+}
+ 1c2:	0f 90       	pop	r0
+ 1c4:	cf 91       	pop	r28
+ 1c6:	df 91       	pop	r29
+ 1c8:	08 95       	ret
+
+000001ca <UART_voidcheckfor_Interupts>:
+extern void UART_voidcheckfor_Interupts(u8 *copy_u8ptrto3Flags_RX_TX_EMPTY){
+ 1ca:	df 93       	push	r29
+ 1cc:	cf 93       	push	r28
+ 1ce:	00 d0       	rcall	.+0      	; 0x1d0 <UART_voidcheckfor_Interupts+0x6>
+ 1d0:	cd b7       	in	r28, 0x3d	; 61
+ 1d2:	de b7       	in	r29, 0x3e	; 62
+ 1d4:	9a 83       	std	Y+2, r25	; 0x02
+ 1d6:	89 83       	std	Y+1, r24	; 0x01
+
+}
+ 1d8:	0f 90       	pop	r0
+ 1da:	0f 90       	pop	r0
+ 1dc:	cf 91       	pop	r28
+ 1de:	df 91       	pop	r29
+ 1e0:	08 95       	ret
+
+000001e2 <UART_voidwriteToUDR>:
+/*comment!:UART_voidwriteToUDR write directly to UDR for using it in ISR in high level   */
+extern void UART_voidwriteToUDR(u8 copy_u8valToSend){
+ 1e2:	df 93       	push	r29
+ 1e4:	cf 93       	push	r28
+ 1e6:	0f 92       	push	r0
+ 1e8:	cd b7       	in	r28, 0x3d	; 61
+ 1ea:	de b7       	in	r29, 0x3e	; 62
+ 1ec:	89 83       	std	Y+1, r24	; 0x01
+
+	UART_u8UDR=copy_u8valToSend;
+ 1ee:	ec e2       	ldi	r30, 0x2C	; 44
+ 1f0:	f0 e0       	ldi	r31, 0x00	; 0
+ 1f2:	89 81       	ldd	r24, Y+1	; 0x01
+ 1f4:	80 83       	st	Z, r24
+
+}
+ 1f6:	0f 90       	pop	r0
+ 1f8:	cf 91       	pop	r28
+ 1fa:	df 91       	pop	r29
+ 1fc:	08 95       	ret
+
+000001fe <UART_voidReadFromUDR>:
+/*comment!:UART_voidReadFromUDR to read  directly from UDR for using it in ISR in high level   */
+extern void UART_voidReadFromUDR(u8 *copy_u8valInUDR){
+ 1fe:	df 93       	push	r29
+ 200:	cf 93       	push	r28
+ 202:	00 d0       	rcall	.+0      	; 0x204 <UART_voidReadFromUDR+0x6>
+ 204:	cd b7       	in	r28, 0x3d	; 61
+ 206:	de b7       	in	r29, 0x3e	; 62
+ 208:	9a 83       	std	Y+2, r25	; 0x02
+ 20a:	89 83       	std	Y+1, r24	; 0x01
+
+	*copy_u8valInUDR=UART_u8UDR;
+ 20c:	ec e2       	ldi	r30, 0x2C	; 44
+ 20e:	f0 e0       	ldi	r31, 0x00	; 0
+ 210:	80 81       	ld	r24, Z
+ 212:	e9 81       	ldd	r30, Y+1	; 0x01
+ 214:	fa 81       	ldd	r31, Y+2	; 0x02
+ 216:	80 83       	st	Z, r24
+}
+ 218:	0f 90       	pop	r0
+ 21a:	0f 90       	pop	r0
+ 21c:	cf 91       	pop	r28
+ 21e:	df 91       	pop	r29
+ 220:	08 95       	ret
+
+00000222 <UART_voidSetTX_ISR>:
+
+
+/*comment!: UART_voidSetTX_ISR call back function to set the ISR */
+
+extern void UART_voidSetTX_ISR(void (*Copy_PtrToTXISR)(void))
+{
+ 222:	df 93       	push	r29
+ 224:	cf 93       	push	r28
+ 226:	00 d0       	rcall	.+0      	; 0x228 <UART_voidSetTX_ISR+0x6>
+ 228:	cd b7       	in	r28, 0x3d	; 61
+ 22a:	de b7       	in	r29, 0x3e	; 62
+ 22c:	9a 83       	std	Y+2, r25	; 0x02
+ 22e:	89 83       	std	Y+1, r24	; 0x01
+	UART_TXInteruptPointer=Copy_PtrToTXISR;
+ 230:	89 81       	ldd	r24, Y+1	; 0x01
+ 232:	9a 81       	ldd	r25, Y+2	; 0x02
+ 234:	90 93 73 00 	sts	0x0073, r25
+ 238:	80 93 72 00 	sts	0x0072, r24
+}
+ 23c:	0f 90       	pop	r0
+ 23e:	0f 90       	pop	r0
+ 240:	cf 91       	pop	r28
+ 242:	df 91       	pop	r29
+ 244:	08 95       	ret
+
+00000246 <UART_voidSetRX_ISR>:
+/*comment!: UART_voidSetRX_ISR call back function to set the ISR */
+
+extern void UART_voidSetRX_ISR(void (*Copy_PtrToRXISR)(void))
+{
+ 246:	df 93       	push	r29
+ 248:	cf 93       	push	r28
+ 24a:	00 d0       	rcall	.+0      	; 0x24c <UART_voidSetRX_ISR+0x6>
+ 24c:	cd b7       	in	r28, 0x3d	; 61
+ 24e:	de b7       	in	r29, 0x3e	; 62
+ 250:	9a 83       	std	Y+2, r25	; 0x02
+ 252:	89 83       	std	Y+1, r24	; 0x01
+	UART_RXInteruptPointer=Copy_PtrToRXISR;
+ 254:	89 81       	ldd	r24, Y+1	; 0x01
+ 256:	9a 81       	ldd	r25, Y+2	; 0x02
+ 258:	90 93 75 00 	sts	0x0075, r25
+ 25c:	80 93 74 00 	sts	0x0074, r24
+}
+ 260:	0f 90       	pop	r0
+ 262:	0f 90       	pop	r0
+ 264:	cf 91       	pop	r28
+ 266:	df 91       	pop	r29
+ 268:	08 95       	ret
+
+0000026a <UART_voidSetBufferEmpty_ISR>:
+
+/*comment!: UART_voidSetBufferEmpty_ISR call back function to set the ISR */
+extern void UART_voidSetBufferEmpty_ISR(void (*Copy_PtrToBufferEmptyISR)(void))
+{
+ 26a:	df 93       	push	r29
+ 26c:	cf 93       	push	r28
+ 26e:	00 d0       	rcall	.+0      	; 0x270 <UART_voidSetBufferEmpty_ISR+0x6>
+ 270:	cd b7       	in	r28, 0x3d	; 61
+ 272:	de b7       	in	r29, 0x3e	; 62
+ 274:	9a 83       	std	Y+2, r25	; 0x02
+ 276:	89 83       	std	Y+1, r24	; 0x01
+	UART_BufferEmptyInteruptPointer=Copy_PtrToBufferEmptyISR;
+ 278:	89 81       	ldd	r24, Y+1	; 0x01
+ 27a:	9a 81       	ldd	r25, Y+2	; 0x02
+ 27c:	90 93 77 00 	sts	0x0077, r25
+ 280:	80 93 76 00 	sts	0x0076, r24
+}
+ 284:	0f 90       	pop	r0
+ 286:	0f 90       	pop	r0
+ 288:	cf 91       	pop	r28
+ 28a:	df 91       	pop	r29
+ 28c:	08 95       	ret
+
+0000028e <__vector_13>:
+
+/*******************************************************************/
+/****************  Private API**************************************/
+/*******************************************************************/
+//reciver
+ISR(__vector_13) {
+ 28e:	1f 92       	push	r1
+ 290:	0f 92       	push	r0
+ 292:	0f b6       	in	r0, 0x3f	; 63
+ 294:	0f 92       	push	r0
+ 296:	11 24       	eor	r1, r1
+ 298:	2f 93       	push	r18
+ 29a:	3f 93       	push	r19
+ 29c:	4f 93       	push	r20
+ 29e:	5f 93       	push	r21
+ 2a0:	6f 93       	push	r22
+ 2a2:	7f 93       	push	r23
+ 2a4:	8f 93       	push	r24
+ 2a6:	9f 93       	push	r25
+ 2a8:	af 93       	push	r26
+ 2aa:	bf 93       	push	r27
+ 2ac:	ef 93       	push	r30
+ 2ae:	ff 93       	push	r31
+ 2b0:	df 93       	push	r29
+ 2b2:	cf 93       	push	r28
+ 2b4:	cd b7       	in	r28, 0x3d	; 61
+ 2b6:	de b7       	in	r29, 0x3e	; 62
+	UART_RXInteruptPointer();
+ 2b8:	e0 91 74 00 	lds	r30, 0x0074
+ 2bc:	f0 91 75 00 	lds	r31, 0x0075
+ 2c0:	09 95       	icall
+}
+ 2c2:	cf 91       	pop	r28
+ 2c4:	df 91       	pop	r29
+ 2c6:	ff 91       	pop	r31
+ 2c8:	ef 91       	pop	r30
+ 2ca:	bf 91       	pop	r27
+ 2cc:	af 91       	pop	r26
+ 2ce:	9f 91       	pop	r25
+ 2d0:	8f 91       	pop	r24
+ 2d2:	7f 91       	pop	r23
+ 2d4:	6f 91       	pop	r22
+ 2d6:	5f 91       	pop	r21
+ 2d8:	4f 91       	pop	r20
+ 2da:	3f 91       	pop	r19
+ 2dc:	2f 91       	pop	r18
+ 2de:	0f 90       	pop	r0
+ 2e0:	0f be       	out	0x3f, r0	; 63
+ 2e2:	0f 90       	pop	r0
+ 2e4:	1f 90       	pop	r1
+ 2e6:	18 95       	reti
+
+000002e8 <__vector_14>:
+//udr
+ISR(__vector_14) {
+ 2e8:	1f 92       	push	r1
+ 2ea:	0f 92       	push	r0
+ 2ec:	0f b6       	in	r0, 0x3f	; 63
+ 2ee:	0f 92       	push	r0
+ 2f0:	11 24       	eor	r1, r1
+ 2f2:	2f 93       	push	r18
+ 2f4:	3f 93       	push	r19
+ 2f6:	4f 93       	push	r20
+ 2f8:	5f 93       	push	r21
+ 2fa:	6f 93       	push	r22
+ 2fc:	7f 93       	push	r23
+ 2fe:	8f 93       	push	r24
+ 300:	9f 93       	push	r25
+ 302:	af 93       	push	r26
+ 304:	bf 93       	push	r27
+ 306:	ef 93       	push	r30
+ 308:	ff 93       	push	r31
+ 30a:	df 93       	push	r29
+ 30c:	cf 93       	push	r28
+ 30e:	cd b7       	in	r28, 0x3d	; 61
+ 310:	de b7       	in	r29, 0x3e	; 62
+	UART_BufferEmptyInteruptPointer();
+ 312:	e0 91 76 00 	lds	r30, 0x0076
+ 316:	f0 91 77 00 	lds	r31, 0x0077
+ 31a:	09 95       	icall
+}
+ 31c:	cf 91       	pop	r28
+ 31e:	df 91       	pop	r29
+ 320:	ff 91       	pop	r31
+ 322:	ef 91       	pop	r30
+ 324:	bf 91       	pop	r27
+ 326:	af 91       	pop	r26
+ 328:	9f 91       	pop	r25
+ 32a:	8f 91       	pop	r24
+ 32c:	7f 91       	pop	r23
+ 32e:	6f 91       	pop	r22
+ 330:	5f 91       	pop	r21
+ 332:	4f 91       	pop	r20
+ 334:	3f 91       	pop	r19
+ 336:	2f 91       	pop	r18
+ 338:	0f 90       	pop	r0
+ 33a:	0f be       	out	0x3f, r0	; 63
+ 33c:	0f 90       	pop	r0
+ 33e:	1f 90       	pop	r1
+ 340:	18 95       	reti
+
+00000342 <__vector_15>:
+//transmiter
+ISR(__vector_15) {
+ 342:	1f 92       	push	r1
+ 344:	0f 92       	push	r0
+ 346:	0f b6       	in	r0, 0x3f	; 63
+ 348:	0f 92       	push	r0
+ 34a:	11 24       	eor	r1, r1
+ 34c:	2f 93       	push	r18
+ 34e:	3f 93       	push	r19
+ 350:	4f 93       	push	r20
+ 352:	5f 93       	push	r21
+ 354:	6f 93       	push	r22
+ 356:	7f 93       	push	r23
+ 358:	8f 93       	push	r24
+ 35a:	9f 93       	push	r25
+ 35c:	af 93       	push	r26
+ 35e:	bf 93       	push	r27
+ 360:	ef 93       	push	r30
+ 362:	ff 93       	push	r31
+ 364:	df 93       	push	r29
+ 366:	cf 93       	push	r28
+ 368:	cd b7       	in	r28, 0x3d	; 61
+ 36a:	de b7       	in	r29, 0x3e	; 62
+	UART_TXInteruptPointer();
+ 36c:	e0 91 72 00 	lds	r30, 0x0072
+ 370:	f0 91 73 00 	lds	r31, 0x0073
+ 374:	09 95       	icall
+}
+ 376:	cf 91       	pop	r28
+ 378:	df 91       	pop	r29
+ 37a:	ff 91       	pop	r31
+ 37c:	ef 91       	pop	r30
+ 37e:	bf 91       	pop	r27
+ 380:	af 91       	pop	r26
+ 382:	9f 91       	pop	r25
+ 384:	8f 91       	pop	r24
+ 386:	7f 91       	pop	r23
+ 388:	6f 91       	pop	r22
+ 38a:	5f 91       	pop	r21
+ 38c:	4f 91       	pop	r20
+ 38e:	3f 91       	pop	r19
+ 390:	2f 91       	pop	r18
+ 392:	0f 90       	pop	r0
+ 394:	0f be       	out	0x3f, r0	; 63
+ 396:	0f 90       	pop	r0
+ 398:	1f 90       	pop	r1
+ 39a:	18 95       	reti
+
+0000039c <_exit>:
+ 39c:	f8 94       	cli
+
+0000039e <__stop_program>:
+ 39e:	ff cf       	rjmp	.-2      	; 0x39e <__stop_program>
