@@ -8,6 +8,7 @@
 #ifndef LCD_PRIVATE_C_
 #define LCD_PRIVATE_C_
 
+
 /*Comment!: Mask for setting specific bits*/
 #define Lcd_u8Bit0 			0b00000001
 #define Lcd_u8Bit1 			0b00000010
@@ -32,5 +33,8 @@
 #define LCD_u8Bit8	0
 #define LCD_u8Bit4	1
 
+
+void LCD_EnableLcd(void);//to enable LCd
+void LCD_WaitLcd(void);//wait for
 
 #endif /* LCD_PRIVATE_C_ */

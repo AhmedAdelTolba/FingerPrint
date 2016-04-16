@@ -11,7 +11,7 @@
 #include "LCD_interface.h"
 #include "../../../MCAL/DIO/DIO_CODE/DIO_interface.h"
 /*****************************************************************/
-void LCD_VoidCmd(u8 LCD_u8Command)
+void LCD_VoidCmd(u8 LCD_u8Command)/*send command to LCd */
 {
 	//LCD_u8Port=LCD_u8Command;
 	LCD_WaitLcd();
@@ -265,7 +265,7 @@ void LCD_VoidGotoxy(u8 LCD_u8x,u8 LCD_u8y)//(rkm el3mod,rkm elsf)
     {
         LCD_VoidCmd(0x80+LCD_u8x);
     }
-     else
+    if(LCD_u8y == 2)
      {
         LCD_VoidCmd(0xc0+LCD_u8x);
      }
