@@ -2,7 +2,6 @@ Software/HAL/LCD/LCD_CODE/LCD_Prog.d Software/HAL/LCD/LCD_CODE/LCD_Prog.o:  \
  ../Software/HAL/LCD/LCD_CODE/LCD_Prog.c \
   ../Software/HAL/LCD/LCD_CODE/../../../Shared_Libraries/Types.h \
   ../Software/HAL/LCD/LCD_CODE/../../../Shared_Libraries/delay.h \
-  ../Software/HAL/LCD/LCD_CODE/../../../Shared_Libraries/types.h \
   ../Software/HAL/LCD/LCD_CODE/../../../Shared_Libraries/delay_config.h \
   ../Software/HAL/LCD/LCD_CODE/LCD_Private.h \
   ../Software/HAL/LCD/LCD_CODE/LCD_Config.h \
@@ -12,8 +11,6 @@ Software/HAL/LCD/LCD_CODE/LCD_Prog.d Software/HAL/LCD/LCD_CODE/LCD_Prog.o:  \
 ../Software/HAL/LCD/LCD_CODE/../../../Shared_Libraries/Types.h:
 
 ../Software/HAL/LCD/LCD_CODE/../../../Shared_Libraries/delay.h:
-
-../Software/HAL/LCD/LCD_CODE/../../../Shared_Libraries/types.h:
 
 ../Software/HAL/LCD/LCD_CODE/../../../Shared_Libraries/delay_config.h:
 

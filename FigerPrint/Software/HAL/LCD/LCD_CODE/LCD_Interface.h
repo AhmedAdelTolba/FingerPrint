@@ -27,31 +27,18 @@
 	1		1		Reads information from LCD
  *
  * */
-<<<<<<< HEAD
-extern void LCD_extern voidCmd(u8 LCD_u8Command);/*send command to LCd */
-extern void LCD_extern voidData(u8 LCD_u8Data);/*send Data to LCd */
-extern void LCD_extern voidInit( void);/*to init lcd*/
-extern void LCD_extern voidString(u8 *LCD_u8Ptr);/*Display String on lcd*/
-u16* LCD_u16ReturnString(u16 inputValue);/*it will convert from decimal to string*/
-extern void LCD_extern voidSendStringxy(u8 *LCD_u8str,u8 LCD_u8x,u8 LCD_u8y);//("aktb ely 3aizo",rkm anhih 7th fy el3mod ,rkm el sf)
-extern void LCD_extern voidGotoxy(u8 LCD_u8x,u8 LCD_u8y);//(rkm el3mod,rkm elsf)
-extern void LCD_extern voidRowString (u8 LCD_u8row,u8 *LCD_u8String);//(rkm el sf,"el2sm ely 3ais tktbo")
-extern void LCD_extern voidRow(u8 LCD_u8no);//elsf elawl wla eltany
-extern void LCD_extern voidClearScreen( void);//clear Lcd
-=======
-void LCD_VoidCmd(u8 LCD_u8Command);
-void LCD_VoidData(u8 LCD_u8Data);
-void LCD_VoidInit(void);
-void LCD_VoidString(u8 *LCD_u8Ptr);
-u16* LCD_u16ReturnString(u16 inputValue);
-void LCD_VoidSendStringxy(u8 *LCD_u8str,u8 LCD_u8x,u8 LCD_u8y);
-void LCD_VoidGotoxy(u8 LCD_u8x,u8 LCD_u8y);
-void LCD_VoidRowString (u8 LCD_u8row,u8 *LCD_u8String);
-void LCD_VoidRow(u8 LCD_u8no);
-u16* LCD_u16ReturnString(u16 inputValue);
-void LCD_EnableLcd(void);
-void LCD_WaitLcd(void);
-void LCD_VoidClearScreen(void);
->>>>>>> branch 'LCD' of https://github.com/AhmedAdelTolba/FingerPrint
+extern void LCD_extern_voidCmd (u8 LCD_u8Command);/*send command to LCd */
+extern void LCD_extern_voidData(u8 LCD_u8Data);/*send Data to LCd */
+extern void LCD_VoidInit( void);/*to init lcd*/
+extern void LCD_VoidString(u8 *LCD_u8Ptr);/*Display String on lcd*/
+extern u16* LCD_u16ReturnString(u16 inputValue);/*it will convert from decimal to string*/
+extern void LCD_extern_voidSendStringxy(u8 *LCD_u8str,u8 LCD_u8x,u8 LCD_u8y);//("aktb ely 3aizo",rkm anhih 7th fy el3mod ,rkm el sf)
+extern void LCD_extern_voidGotoxy(u8 LCD_u8x,u8 LCD_u8y);//(rkm el3mod,rkm elsf)
+extern void LCD_extern_voidRowString (u8 LCD_u8row,u8 *LCD_u8String);//(rkm el sf,"el2sm ely 3ais tktbo")
+extern void LCD_extern_voidRow(u8 LCD_u8no);//elsf elawl wla eltany
+extern void LCD_VoidClearScreen( void);//clear Lcd
+
+extern void LCD_EnableLcd(void);
+extern void LCD_WaitLcd(void);
 
 #endif /* LCD_INTERFACE_C_ */

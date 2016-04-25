@@ -9,6 +9,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Software/MCAL/DIO/DIO_CODE/subdir.mk
+-include Software/HAL/LCD/LCD_Test/subdir.mk
 -include Software/HAL/LCD/LCD_CODE/subdir.mk
 -include subdir.mk
 -include objects.mk
@@ -40,6 +41,9 @@ FigerPrint.hex \
 SIZEDUMMY += \
 sizedummy \
 
+AVRDUDEDUMMY += \
+avrdudedummy \
+
 
 # All Target
 all: FigerPrint.elf secondary-outputs
@@ -48,7 +52,7 @@ all: FigerPrint.elf secondary-outputs
 FigerPrint.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C Linker'
-	avr-gcc -Wl,-Map,FigerPrint.map -mmcu=atmega32 -o "FigerPrint.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-gcc -Wl,-Map,FigerPrint.map -mmcu=atmega16 -o "FigerPrint.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -66,16 +70,22 @@ FigerPrint.hex: FigerPrint.elf
 
 sizedummy: FigerPrint.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega32 FigerPrint.elf
+	-avr-size --format=avr --mcu=atmega16 FigerPrint.elf
+	@echo 'Finished building: $@'
+	@echo ' '
+
+avrdudedummy: FigerPrint.elf
+	@echo 'Invoking: AVRDude'
+	C:\WinAVR-20100110\bin\avrdude -pm16 -cusbasp -u -Uflash:w:FigerPrint.hex:a -Ulfuse:w:0xff:m -Uhfuse:w:0xd9:m
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) FigerPrint.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(AVRDUDEDUMMY)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) FigerPrint.elf
 	-@echo ' '
 
-secondary-outputs: $(LSS) $(FLASH_IMAGE) $(SIZEDUMMY)
+secondary-outputs: $(LSS) $(FLASH_IMAGE) $(SIZEDUMMY) $(AVRDUDEDUMMY)
 
 .PHONY: all clean dependents
 .SECONDARY:

@@ -3,7 +3,6 @@
  
  */
 
-#include "types.h"
 #include "delay_config.h"
 
 #ifndef DELAY_H_
