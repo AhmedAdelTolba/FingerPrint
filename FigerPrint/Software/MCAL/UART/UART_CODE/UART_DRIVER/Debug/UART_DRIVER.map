@@ -118,7 +118,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x436
+.text           0x00000000      0x3ee
  *(.vectors)
  .vectors       0x00000000       0x54 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
                 0x00000000                __vectors
@@ -207,52 +207,52 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .text.main     0x000000d4       0x66 ./mainAPP/mainApp.o
                 0x000000d4                main
  .text.UART_VoidInit
-                0x0000013a       0xa4 ./headerfiles/UART/UART_prog.o
+                0x0000013a       0x5c ./headerfiles/UART/UART_prog.o
                 0x0000013a                UART_VoidInit
  .text.UART_VoidSending
-                0x000001de       0x2e ./headerfiles/UART/UART_prog.o
-                0x000001de                UART_VoidSending
+                0x00000196       0x2e ./headerfiles/UART/UART_prog.o
+                0x00000196                UART_VoidSending
  .text.UART_VoidResiving
-                0x0000020c       0x2e ./headerfiles/UART/UART_prog.o
-                0x0000020c                UART_VoidResiving
+                0x000001c4       0x2e ./headerfiles/UART/UART_prog.o
+                0x000001c4                UART_VoidResiving
  .text.UART_voidFlushMemory
-                0x0000023a       0x26 ./headerfiles/UART/UART_prog.o
-                0x0000023a                UART_voidFlushMemory
+                0x000001f2       0x26 ./headerfiles/UART/UART_prog.o
+                0x000001f2                UART_voidFlushMemory
  .text.UART_voidcheckfor_Interupts
-                0x00000260       0x18 ./headerfiles/UART/UART_prog.o
-                0x00000260                UART_voidcheckfor_Interupts
+                0x00000218       0x18 ./headerfiles/UART/UART_prog.o
+                0x00000218                UART_voidcheckfor_Interupts
  .text.UART_voidwriteToUDR
-                0x00000278       0x1c ./headerfiles/UART/UART_prog.o
-                0x00000278                UART_voidwriteToUDR
+                0x00000230       0x1c ./headerfiles/UART/UART_prog.o
+                0x00000230                UART_voidwriteToUDR
  .text.UART_voidReadFromUDR
-                0x00000294       0x24 ./headerfiles/UART/UART_prog.o
-                0x00000294                UART_voidReadFromUDR
+                0x0000024c       0x24 ./headerfiles/UART/UART_prog.o
+                0x0000024c                UART_voidReadFromUDR
  .text.UART_voidSetTX_ISR
-                0x000002b8       0x24 ./headerfiles/UART/UART_prog.o
-                0x000002b8                UART_voidSetTX_ISR
+                0x00000270       0x24 ./headerfiles/UART/UART_prog.o
+                0x00000270                UART_voidSetTX_ISR
  .text.UART_voidSetRX_ISR
-                0x000002dc       0x24 ./headerfiles/UART/UART_prog.o
-                0x000002dc                UART_voidSetRX_ISR
+                0x00000294       0x24 ./headerfiles/UART/UART_prog.o
+                0x00000294                UART_voidSetRX_ISR
  .text.UART_voidSetBufferEmpty_ISR
-                0x00000300       0x24 ./headerfiles/UART/UART_prog.o
-                0x00000300                UART_voidSetBufferEmpty_ISR
+                0x000002b8       0x24 ./headerfiles/UART/UART_prog.o
+                0x000002b8                UART_voidSetBufferEmpty_ISR
  .text.__vector_13
-                0x00000324       0x5a ./headerfiles/UART/UART_prog.o
-                0x00000324                __vector_13
+                0x000002dc       0x5a ./headerfiles/UART/UART_prog.o
+                0x000002dc                __vector_13
  .text.__vector_14
-                0x0000037e       0x5a ./headerfiles/UART/UART_prog.o
-                0x0000037e                __vector_14
+                0x00000336       0x5a ./headerfiles/UART/UART_prog.o
+                0x00000336                __vector_14
  .text.__vector_15
-                0x000003d8       0x5a ./headerfiles/UART/UART_prog.o
-                0x000003d8                __vector_15
- .text.libgcc   0x00000432        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x00000432        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x00000432        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
-                0x00000432                . = ALIGN (0x2)
+                0x00000390       0x5a ./headerfiles/UART/UART_prog.o
+                0x00000390                __vector_15
+ .text.libgcc   0x000003ea        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x000003ea        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x000003ea        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+                0x000003ea                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000432        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x00000432                exit
-                0x00000432                _exit
+ .fini9         0x000003ea        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x000003ea                exit
+                0x000003ea                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -271,11 +271,11 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000432        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x000003ea        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000436                _etext = .
+                0x000003ee                _etext = .
 
-.data           0x00800060       0x14 load address 0x00000436
+.data           0x00800060       0x14 load address 0x000003ee
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
@@ -286,16 +286,18 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
  .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
  .data          0x00800060        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
  *(.data*)
- .data.local_u8oldVal.1215
+ .data.local_u8sendAndReciving2
                 0x00800060        0x1 ./mainAPP/mainApp.o
+                0x00800060                local_u8sendAndReciving2
+ .data.local_u8oldVal.1216
+                0x00800061        0x1 ./mainAPP/mainApp.o
  *(.rodata)
  *(.rodata*)
  .rodata.baudRate
-                0x00800061       0x12 ./headerfiles/UART/UART_prog.o
-                0x00800061                baudRate
+                0x00800062       0x12 ./headerfiles/UART/UART_prog.o
+                0x00800062                baudRate
  *(.gnu.linkonce.d*)
                 0x00800074                . = ALIGN (0x2)
- *fill*         0x00800073        0x1 00
                 0x00800074                _edata = .
                 0x00800074                PROVIDE (__data_end, .)
 
@@ -318,8 +320,8 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
                 0x00800078        0x2 ./headerfiles/UART/UART_prog.o
  *(COMMON)
                 0x0080007a                PROVIDE (__bss_end, .)
-                0x00000436                __data_load_start = LOADADDR (.data)
-                0x0000044a                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000003ee                __data_load_start = LOADADDR (.data)
+                0x00000402                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080007a        0x0
                 0x0080007a                PROVIDE (__noinit_start, .)
@@ -344,17 +346,17 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a
 .signature
  *(.signature*)
 
-.stab           0x00000000      0x918
+.stab           0x00000000      0x8f4
  *(.stab)
- .stab          0x00000000      0x2d0 ./mainAPP/mainApp.o
- .stab          0x000002d0      0x570 ./headerfiles/UART/UART_prog.o
-                                0x57c (size before relaxing)
- .stab          0x00000840       0xd8 ./headerfiles/DelayFiles/Delay_prog.o
+ .stab          0x00000000      0x2dc ./mainAPP/mainApp.o
+ .stab          0x000002dc      0x540 ./headerfiles/UART/UART_prog.o
+                                0x54c (size before relaxing)
+ .stab          0x0000081c       0xd8 ./headerfiles/DelayFiles/Delay_prog.o
                                  0xe4 (size before relaxing)
 
-.stabstr        0x00000000      0x736
+.stabstr        0x00000000      0x756
  *(.stabstr)
- .stabstr       0x00000000      0x736 ./mainAPP/mainApp.o
+ .stabstr       0x00000000      0x756 ./mainAPP/mainApp.o
 
 .stab.excl
  *(.stab.excl)

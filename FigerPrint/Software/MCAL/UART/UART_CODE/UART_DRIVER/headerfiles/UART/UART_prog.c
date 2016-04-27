@@ -117,7 +117,7 @@
 /************** configuration Dependant operation ******************/
 /*******************************************************************/
 #if UART_u8u2x==0
-const u16 baudRate[3][3]={{103,25,1},
+const u16 baudRate[3][3]={{103,26,1},
 						  {207,51,3},
 						  {287,71,5}};
 
@@ -146,23 +146,16 @@ extern void UART_VoidInit(void) {
 	//Getting the value to load in the UBBRH & UBBRL to
 	//apply the baud rate from the baudRate[][] array its row os the system clk
 	//&its col is the  baud rate & the baudrate[][] array itself depend on the u2x ()
-	u16 local_u16UBBRVal = baudRate[SYTEMOSCILLATOR][UART_u8BUDRATE];
+	u16 local_u16UBBRVal ;
 	u8 local_u8UBRRVvalLow, local_u8UBRRVvalHigh;
+	local_u16UBBRVal= baudRate[SYTEMOSCILLATOR][UART_u8BUDRATE];
+
+
 	//extraxt the low 8bit of the   local_u16UBBRVal
 	local_u8UBRRVvalLow = (local_u16UBBRVal);
 	//extraxt the HIGH 8bti of the   local_u16UBBRVal
 	local_u8UBRRVvalHigh = (local_u16UBBRVal >> EIGHTBBITS);
-	//try to clr the register select in the ubbrh to choose ubbrh
-	//not the ucsrc :)
-	//and check that its realy cleared
-	do {
-		UART_u8UBRRH = Clrbit(UART_u8UBRRH, UART_u8UBRRH_URSEL);
-	} while (GetBit(UART_u8UBRRH, UART_u8UBRRH_URSEL));
-	//assign the val to UART_u8UBRRH
-	UART_u8UBRRH = local_u8UBRRVvalHigh;
-	//assign the val to UART_u8UBRRH
-	//and clr the ursel bit
-	UART_u8UBRRL = Clrbit(local_u8UBRRVvalLow, UART_u8UBRRH_URSEL);
+
 	//Initializing the uart controll and status register (a,b,c)
 	//initializing UCSRA
 	UART_u8UCSRA = conc(0, 0, 0, 0, 0, 0, UART_u8u2x, 0);
@@ -173,12 +166,24 @@ extern void UART_VoidInit(void) {
 	//try to set the register select in the UART_u8UCSRC to choose UART_u8UCSRC
 	//not the ubrrh :)
 	//and check that its been set
-	do {
-		UART_u8UCSRC = Setbit(UART_u8UCSRC, UART_u8UCSRC_URSEL);
-	} while (!GetBit(UART_u8UCSRC, UART_u8UCSRC_URSEL));
+//	do {
+//		UART_u8UCSRC = Setbit(UART_u8UCSRC, UART_u8UCSRC_URSEL);
+//	} while (!GetBit(UART_u8UCSRC, UART_u8UCSRC_URSEL));
 	//initializing UCSRC
 	UART_u8UCSRC = conc(1, 0, UART_u8PARITY1, UART_u8PARITY0,
 			UART_u8STOPBITSLOCAL, UART_PROG_U8UCSZ1, UART_PROG_U8UCSZ0, 0);
+
+	//try to clr the register select in the ubbrh to choose ubbrh
+	//not the ucsrc :)
+	//and check that its realy cleared
+//	do {
+//		UART_u8UBRRH = Clrbit(UART_u8UBRRH, UART_u8UBRRH_URSEL);
+//	} while (GetBit(UART_u8UBRRH, UART_u8UBRRH_URSEL));
+	//assign the val to UART_u8UBRRH
+	UART_u8UBRRH =  Clrbit(local_u8UBRRVvalHigh, UART_u8UBRRH_URSEL) ;
+	//assign the val to UART_u8UBRRH
+	//and clr the ursel bit
+	UART_u8UBRRL =local_u8UBRRVvalLow;
 }
 //preprosessor to chek if the UART_u8DATABITS <9
 #if (UART_u8DATABITS==5||UART_u8DATABITS==6||UART_u8DATABITS==7||UART_u8DATABITS==8)

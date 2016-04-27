@@ -11,6 +11,7 @@
 //for tx Interupt testing only
 #define PORTA                     *((volatile u8*)(0x3B))
 #define DDRA                      *((volatile u8*)(0x3A))
+u8 local_u8sendAndReciving2='z';
 void txINT(void){
 	static u8 local_u8oldVal=0xff;
 	local_u8oldVal^=0xff;
@@ -20,6 +21,7 @@ void RxINT(void){
 	 u8 local_u8sendAndReciving;
 	UART_voidReadFromUDR(&local_u8sendAndReciving);
 	UART_voidwriteToUDR(local_u8sendAndReciving);
+	//local_u8sendAndReciving2=local_u8sendAndReciving;
 }
 int main (void)
 {
@@ -29,7 +31,6 @@ int main (void)
 	UART_VoidInit();
 	INTERUPTVECTOR_SETGLOPALINTERUPT;
 while(1){
-    	//UART_VoidSending(local_u8sendAndReciving);
 	//UART_VoidResiving(&local_u8sendAndReciving);
 	Delay(200);
 
