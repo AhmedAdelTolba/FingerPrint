@@ -10,6 +10,7 @@ RM := rm -rf
 -include sources.mk
 -include mainAPP/subdir.mk
 -include headerfiles/UART/subdir.mk
+-include headerfiles/DelayFiles/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -34,8 +35,14 @@ endif
 LSS += \
 UART_DRIVER.lss \
 
+FLASH_IMAGE += \
+UART_DRIVER.hex \
+
 SIZEDUMMY += \
 sizedummy \
+
+AVRDUDEDUMMY += \
+avrdudedummy \
 
 
 # All Target
@@ -55,18 +62,30 @@ UART_DRIVER.lss: UART_DRIVER.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
+UART_DRIVER.hex: UART_DRIVER.elf
+	@echo 'Create Flash image (ihex format)'
+	-avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex UART_DRIVER.elf  "UART_DRIVER.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 sizedummy: UART_DRIVER.elf
 	@echo 'Invoking: Print Size'
 	-avr-size --format=avr --mcu=atmega32 UART_DRIVER.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
+avrdudedummy: UART_DRIVER.elf
+	@echo 'Invoking: AVRDude'
+	C:\WinAVR-20100110\bin\avrdude -pm32 -cusbasp -u -Uflash:w:UART_DRIVER.hex:a -Ulfuse:w:0xff:m -Uhfuse:w:0x9d:m
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) $(ELFS)$(OBJS)$(ASM_DEPS)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) UART_DRIVER.elf
+	-$(RM) $(FLASH_IMAGE)$(ELFS)$(OBJS)$(ASM_DEPS)$(AVRDUDEDUMMY)$(S_DEPS)$(SIZEDUMMY)$(S_UPPER_DEPS)$(LSS)$(C_DEPS) UART_DRIVER.elf
 	-@echo ' '
 
-secondary-outputs: $(LSS) $(SIZEDUMMY)
+secondary-outputs: $(LSS) $(FLASH_IMAGE) $(SIZEDUMMY) $(AVRDUDEDUMMY)
 
 .PHONY: all clean dependents
 .SECONDARY:
